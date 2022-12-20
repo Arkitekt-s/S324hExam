@@ -78,6 +78,14 @@ public class OrderFoodService {
         }
         return totalWeight;
     }
+    //cheak if the order is more than 10000 grams not allowed
+    public boolean cheakWeight(Long id) {
+        if (calculateTotalWeight(id) < 100000) {
+            return true;
+        } else {
+            throw new IllegalStateException("The order is more than 10000 grams not allowed");
+        }
+    }
 
 
 
