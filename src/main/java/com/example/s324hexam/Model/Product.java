@@ -34,7 +34,10 @@ public class Product {
     @Column(nullable = false, length = 100)
     private Integer weight;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    //cascade type persist means that if a product is deleted, all the orders that contain that product will be deleted as well
+    //different between cascade type all and persist is that all will delete all the orders that contain that product, but persist will only delete the orders that contain that product
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @JsonIgnore
     private Set<OrderFood> orders = new HashSet<>();

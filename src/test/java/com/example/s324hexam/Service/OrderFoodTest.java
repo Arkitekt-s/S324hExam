@@ -27,15 +27,18 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderFoodTest {
-    //mock is for isolate repo class
+    //mock is for isolate repo class and its not connected to database
     @Mock
     private OrderFoodRepo orderFoodRepo;
     private OrderFoodService orderFoodService;
 
+    //BEFORE EACH test case this method is run
     @BeforeEach
     public void setUp() {
         orderFoodService = new OrderFoodService(orderFoodRepo);
+
     }
+
 
     @Test
     public void getAllOrders() {
@@ -58,6 +61,10 @@ public class OrderFoodTest {
         van.setModel("Model");
         van.setBrand("Brand");
         van.setCapacity(12);
+        Van van2 = new Van();
+        van2.setCapacity(12000);
+        van2.setBrand("benz");
+        van2.setModel("b2");
 
 
         // given
@@ -65,10 +72,11 @@ public class OrderFoodTest {
                 new OrderFood(1L, 1, product, delivery),
                 new OrderFood(2L, 2, product, delivery),
                 new OrderFood(3L, 3, product, delivery)
-        );
-        when(orderFoodRepo.findAll()).thenReturn(given);
 
-        // when
+
+        );
+        //when is defines the method call that is mocked from the class
+        when(orderFoodRepo.findAll()).thenReturn(given);
         var actual = orderFoodService.getAllOrders();
 
         // then
@@ -114,11 +122,11 @@ public class OrderFoodTest {
         //given
         var given = new OrderFood(1L, 1, new Product(), new Delivery());
         //when
-        when (orderFoodRepo.findById(1l)).thenReturn(java.util.Optional.of(given));
-        when (orderFoodRepo.save(given)).thenReturn(given);
+        when(orderFoodRepo.findById(1l)).thenReturn(java.util.Optional.of(given));
+        when(orderFoodRepo.save(given)).thenReturn(given);
 
         //then
-        var actual = orderFoodService.updateOrder(1l,given);
+        var actual = orderFoodService.updateOrder(1l, given);
         assertThat(actual.getId()).isEqualTo(1l);
         assertThat(actual.getQuantity()).isEqualTo(1);
 
@@ -128,7 +136,7 @@ public class OrderFoodTest {
     @Test
     public void searchOrder() {
         //given
-        var given = List .of (
+        var given = List.of(
                 new OrderFood(1L, 1, new Product(), new Delivery()),
                 new OrderFood(2L, 2, new Product(), new Delivery()),
                 new OrderFood(3L, 3, new Product(), new Delivery())

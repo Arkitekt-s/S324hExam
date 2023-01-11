@@ -4,6 +4,7 @@ import com.example.s324hexam.Model.OrderFood;
 import com.example.s324hexam.Repo.OrderFoodRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -79,6 +80,7 @@ public class OrderFoodService {
         return totalWeight;
     }
     //cheak if the order is more than 10000 grams not allowed
+
     public boolean cheakWeight(Long id) {
         if (calculateTotalWeight(id) < 50000) {
             return true;
@@ -86,10 +88,5 @@ public class OrderFoodService {
             throw new IllegalStateException("The order is more than 50kg not allowed");
         }
     }
-
-
-
-
-
 
 }

@@ -35,10 +35,18 @@ public class OrderFoodControler {
         return new ResponseEntity<>(orderFoodService.calculateTotalPrice(id)
                 , HttpStatus.OK);
     }
+    //calculate Weight
+    @GetMapping("{id}/Weight")
+    public ResponseEntity<Integer> getWeight(@PathVariable Long id) {
+        //find by id and calulate weight
+        return new ResponseEntity<>(orderFoodService.calculateTotalWeight(id)
+                ,HttpStatus.OK);
+    }
+
     //creat
     @PostMapping
     public ResponseEntity<OrderFood> save(@RequestBody OrderFood orderFood) {
-        //cheack if the order is more than 10000 grams not allowed
+        //cheack if the order is more than 50000 grams not allowed
         if(orderFoodService.cheakWeight(orderFood.getDelivery().getId()))
             return new ResponseEntity<>(orderFoodService.createOrder(orderFood), HttpStatus.OK);
         else{

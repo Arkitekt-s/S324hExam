@@ -25,11 +25,11 @@ public class OrderFood {
 
 
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "delivery_id", referencedColumnName = "id")
     private Delivery delivery;
 

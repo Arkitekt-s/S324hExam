@@ -28,7 +28,7 @@ public class Van {
     @Column(nullable = false, length = 100)
     private Integer capacity;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id", referencedColumnName = "id")
     @JsonIgnore
     private Set<Delivery> deliveryset = new HashSet<>();
