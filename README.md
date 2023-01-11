@@ -1,5 +1,5 @@
 # 24 hours exam project - Grocery Delivery System
-# (backend)
+# (Backend)
 
 Programming-2, 3. semester KEA, fall 2022.
 
